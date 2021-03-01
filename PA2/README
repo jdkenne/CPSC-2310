@@ -1,0 +1,7 @@
+To be truthful, I didn't encounter many problems in this assignment. I only encountered two problems in this assignment.
+The first problem I encountered was when I wrote all of my functions and tried to run the program.
+I discovered that inside my getFileCount function, it was not reading in anything. I fixed this by adding in fget(fp)
+to actually read in from input.txt. This fixed that issue. The next issue I had was my count of the number of 
+things read in being off by one. I fixed this by returning count-1 in getFileCount. 
+In my opinion, this assignment was not difficult, especially since the usage of internet searching was highly
+encouraged. This helped a lot, and eliminated a lot of the hard thinking that would have been required without it.
