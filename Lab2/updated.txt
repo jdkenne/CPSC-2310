@@ -1,0 +1,13 @@
+A A A
+A Z A
+C A A
+A Z C
+C C Z
+C Z A
+Z C D
+A C Z
+A A C
+C C C
+C D A
+A D C
+A Z A

@@ -1,0 +1,71 @@
+CPSC 2310 Fall 2020
+Lab 12 Questions
+
+1. As discussed in the lab writeup, the locations for min and max are 
+	-8(%rbq) and -4(%rbq), which are 4 apart. How far apart would these
+	addresses be if min and max were chars instead of ints? Why?
+	What if they were doubles? 
+	(You can test this)
+
+	If min and max were chars, they would be 1 apart because of the size of a char.
+	When they are doubles, they would be 8.
+
+2. Alter the values assigned to min and max in the driver.s file
+	| min | max | result
+	=======================
+	| 0   | 10  | 0 1 2 3 4 5 6 7 8 9 10
+	| 5   | 10  | 5 6 7 8 9 10
+	| 10  | 0   | nothing
+	| -5  | 1   | -5 -4 -3 -2 -1 0 1
+
+3. What are these lines doing in driver.s?
+
+	movl  -8(%rbp), %eax # min, tmp89
+   	movl  %eax, -12(%rbp)   # tmp89, i
+
+	First line indicates where min variable is being stored and the second line indicate where 
+	i is being stored	
+
+4. What happens when you change the jump conditional to jl instead of jle?
+	What if you change it to jg? Why?
+	
+	When you change it to jl, it will print up to the number 9. It changes the condition to only jump
+	when less than as opposed to "less than or equal to". When changing to jg results in nothing being printed
+	out since min is never greater than max. 
+
+5. The last line in .L3 handles the for loop change (i++)
+   The third line in .L2  handles the for loop conditional (i < max)
+(The first two lines in .L2 handle the initialization, but we won't alter that)
+	
+Fill in the resulting loop and print out when we change the x86 commands 
+(*some of these create infinite loops so testing directly may take awhile, 
+try to logic through it first. If there is an infinite loop, write "infinite
+loop" as the printout)
+
+	.L3         | .L2  |        for loop             |    printout
+===========================================================================
+addl  $1, -12(%rbp) | jle  | for(i = min; i <= max; i++) | 0 1 3 4....10
+subl  $1, -12(%rbp) | jle  | for(i = min; i <= max; i--) | infinte loop
+addl  $2, -12(%rbp) | jl   | for(i = min; i < max; i+2) | 0 2 4 6 8
+mull  $2, -12(%rbp) | jge  | for(i = min; i >= max; i*2) | "Error: number of operans mismatch for mul"
+addl  $1, -8(%rbp)  | jle  | for(i = min; i <= max; max++) | infinite loop 0 0 0 0 ....
+
+
+6. lsl r4, r3, #2 is the same as r4 = 4 * r3. Explain
+
+	lsl is doing a left shift of 2 which is the same as multiplying r4 by 4 or 2^2.
+
+   ldr r5, [r0, r4] is the same as r5 = arr[i] in this case. How does this work
+	
+	r4 is equal to arr[i], and with ldr we are offsetting r0 by whatever is to the 
+	right of it in the bracket, in this case r4, which is arr[i]
+	
+
+7. In the beginning of a function in ARM, we push lr onto the stack. At the
+   end, we pop that value into pc. Why is this important? What does it 
+   accomplish?	
+
+	lr holds the return address for a funciton call, and pc shows the next instructions address. We push lr onto	
+	the stack so that we have access to the return address of the function we are in. We pop the value into 
+	pc so we can go to next instruction. This is important because it allows us to keeep to thr program	
+	moving along. 
